@@ -14,14 +14,14 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Lexend,system-ui,sans-serif;font-weight:300;-webkit-tap-highlight-color:transparent}
 .about-link{position:absolute;left:20px;top:16px;white-space:nowrap;background:none;border:0;padding:6px 0;font:400 17px Lexend,sans-serif;color:var(--ink);cursor:pointer}
 .about-link:hover{text-decoration:underline;text-underline-offset:4px}
-main{max-width:640px;margin:0 auto;padding:40px 14px 100px;text-align:center}
-h1{font-family:"Homemade Apple",cursive;font-weight:400;font-size:clamp(26px,min(8.5vw,5.2vh),44px);line-height:1.3;margin:14px 0 4px}
-#mug{width:100%;height:auto;display:block;max-height:calc(100vh - 270px);max-height:calc(100dvh - 270px);min-height:240px}
+main{max-width:640px;margin:0 auto;padding:44px 14px 28px;text-align:center;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:center}
+h1{font-family:"Homemade Apple",cursive;font-weight:400;font-size:clamp(26px,min(8.5vw,5.2vh),44px);line-height:1.3;margin:14px 0 26px}
+#mug{width:100%;height:auto;display:block;max-height:calc(100vh - 330px);max-height:calc(100dvh - 330px);min-height:240px;transform:translateX(3%)}
 .dot{cursor:pointer;outline:none}
 .dot .in{transition:transform .18s;transform-box:fill-box;transform-origin:center}
 .dot:hover .in,.dot:focus-visible .in{transform:scale(1.2)}
 .gr{transition:transform .7s cubic-bezier(.3,1.4,.5,1)}
-.legend{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;margin-top:2px;font-size:13px;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;margin-top:24px;font-size:13px;color:var(--muted)}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px}
 .overlay{position:fixed;inset:0;background:rgba(40,38,32,.35);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:5}
 .overlay.on{opacity:1;pointer-events:auto}
@@ -40,12 +40,12 @@ h1{font-family:"Homemade Apple",cursive;font-weight:400;font-size:clamp(26px,min
 .count{font-size:13px;color:var(--muted);margin-bottom:14px}
 .btn{font:400 14px Lexend,sans-serif;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:10px 20px;cursor:pointer}
 .btn[aria-pressed="true"]{opacity:.5}
-#bar{position:fixed;left:0;right:0;bottom:0;padding:14px 20px calc(22px + env(safe-area-inset-bottom,0px));z-index:4;background:linear-gradient(to top,var(--bg) 65%,transparent)}
-.wrap{max-width:560px;margin:0 auto;display:flex;align-items:center;background:var(--bar);border-radius:999px;padding:0 8px 0 24px;height:50px}
+#bar{padding:30px 6px 0}
+.wrap{max-width:560px;width:100%;margin:0 auto;display:flex;align-items:center;background:var(--bar);border-radius:999px;padding:0 8px 0 24px;height:50px}
 .wrap input{flex:1;min-width:0;border:0;outline:0;background:none;color:var(--ink);font:300 15px Lexend,sans-serif;text-align:left}
 .wrap input::placeholder{color:#7d7b73}
 .wrap button{width:34px;height:34px;border:0;border-radius:50%;background:none;cursor:pointer;display:grid;place-items:center;padding:0}
-#toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;opacity:0;transition:opacity .25s;z-index:6;pointer-events:none;white-space:nowrap}
+#toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;opacity:0;transition:opacity .25s;z-index:6;pointer-events:none;white-space:nowrap}
 #toast.on{opacity:1}
 </style>
 </head>
@@ -55,6 +55,10 @@ h1{font-family:"Homemade Apple",cursive;font-weight:400;font-size:clamp(26px,min
   <h1>memory mug</h1>
   <svg id="mug" viewBox="468 262 578 456" role="group" aria-label="A mug full of memories"></svg>
   <div class="legend" id="legend"></div>
+<div id="bar"><form id="form" class="wrap">
+  <input id="inp" maxlength="500" autocomplete="off" placeholder="share your mug memory" aria-label="Share your mug memory">
+  <button type="submit" aria-label="Send"><svg width="22" height="22" viewBox="0 0 22 22"><path d="M4 11h13M12 5l6 6-6 6" fill="none" stroke="#30302C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</form></div>
 </main>
 
 <div class="overlay" id="aboutWrap"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
@@ -73,10 +77,6 @@ h1{font-family:"Homemade Apple",cursive;font-weight:400;font-size:clamp(26px,min
       <button class="btn" id="res" aria-pressed="false">this resonates</button></div></div>
 </div></div>
 
-<div id="bar"><form id="form" class="wrap">
-  <input id="inp" maxlength="500" autocomplete="off" placeholder="share your mug memory" aria-label="Share your mug memory">
-  <button type="submit" aria-label="Send"><svg width="22" height="22" viewBox="0 0 22 22"><path d="M4 11h13M12 5l6 6-6 6" fill="none" stroke="#30302C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-</form></div>
 <div id="toast"></div>
 
 <script>
